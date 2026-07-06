@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS address_book DEFAULT CHARSET utf8mb4;
+USE address_book;
+
+CREATE TABLE IF NOT EXISTS `user` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `grp` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    group_name VARCHAR(50) NOT NULL,
+    is_default TINYINT NOT NULL DEFAULT 0,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    phone VARCHAR(20),
+    province VARCHAR(50),
+    city VARCHAR(50),
+    county VARCHAR(50),
+    company VARCHAR(100),
+    email VARCHAR(100),
+    remark VARCHAR(200),
+    group_id INT,
+    user_id INT NOT NULL,
+    FOREIGN KEY (group_id) REFERENCES `grp`(id) ON DELETE SET NULL,
+    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
