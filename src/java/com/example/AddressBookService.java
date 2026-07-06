@@ -10,19 +10,24 @@ public class AddressBookService {
 
     // 用户登录
     public User login(String username, String pwd) {
-        String sql = "SELECT id, username, password FROM user WHERE username = ? AND password = ?";
+        // 不能在 SQL 里比对密码了，因为密码是哈希存储的
+        // 先按用户名查用户，再用 BCrypt 验证密码
+        String sql = "SELECT id, username, password FROM user WHERE username = ?";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
-            ps.setString(2, pwd);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt("id"));
-                u.setUsername(rs.getString("username"));
-                u.setPassword(rs.getString("password"));
-                loginUserId = u.getId();
-                return u;
+                String storedHash = rs.getString("password");
+                // BCrypt.verify：用存储的哈希值验证明文密码
+                if (PasswordUtil.verify(pwd, storedHash)) {
+                    User u = new User();
+                    u.setId(rs.getInt("id"));
+                    u.setUsername(rs.getString("username"));
+                    u.setPassword(storedHash);
+                    loginUserId = u.getId();
+                    return u;
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "登录失败: " + e.getMessage());
@@ -45,13 +50,16 @@ public class AddressBookService {
             return false;
         }
 
-        // 插入新用户
+        // 对密码进行 BCrypt 哈希加盐
+        String hashedPwd = PasswordUtil.hash(pwd);
+
+        // 插入新用户（存储哈希值，不是明文）
         String insertSql = "INSERT INTO user (username, password) VALUES (?, ?)";
         int newUserId = -1;
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, username);
-            ps.setString(2, pwd);
+            ps.setString(2, hashedPwd);
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) newUserId = keys.getInt(1);

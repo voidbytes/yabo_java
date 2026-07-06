@@ -37,7 +37,7 @@ public class DBUtil {
             st.executeUpdate("CREATE TABLE IF NOT EXISTS `user` (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "username VARCHAR(50) NOT NULL UNIQUE," +
-                    "password VARCHAR(100) NOT NULL" +
+                    "password VARCHAR(60) NOT NULL" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
             st.executeUpdate("CREATE TABLE IF NOT EXISTS `grp` (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
