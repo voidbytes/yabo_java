@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS address_book DEFAULT CHARSET utf8mb4;
-USE address_book;
+CREATE DATABASE IF NOT EXISTS yabo_address_book DEFAULT CHARSET utf8mb4;
+USE yabo_address_book;
 
 CREATE TABLE IF NOT EXISTS `user` (
     id INT AUTO_INCREMENT PRIMARY KEY,

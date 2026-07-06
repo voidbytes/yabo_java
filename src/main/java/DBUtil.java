@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
-    private static final String URL = "jdbc:mysql://172.16.16.136:3306/address_book?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8";
+    private static final String URL = "jdbc:mysql://172.16.16.136:3306/yabo_address_book?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8";
     private static final String USER = "root";
     private static final String PWD = "root123";
 

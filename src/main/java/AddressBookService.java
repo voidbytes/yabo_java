@@ -16,8 +16,8 @@ public class AddressBookService {
     // 初始化数据库表
     private void initDatabase() {
         try (Connection conn = DBUtil.getConnection(); Statement st = conn.createStatement()) {
-            st.executeUpdate("CREATE DATABASE IF NOT EXISTS address_book DEFAULT CHARSET utf8mb4");
-            st.executeUpdate("USE address_book");
+            st.executeUpdate("CREATE DATABASE IF NOT EXISTS yabo_address_book DEFAULT CHARSET utf8mb4");
+            st.executeUpdate("USE yabo_address_book");
             st.executeUpdate("CREATE TABLE IF NOT EXISTS `user` (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "username VARCHAR(50) NOT NULL UNIQUE," +
