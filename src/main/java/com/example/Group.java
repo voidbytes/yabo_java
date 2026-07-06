@@ -1,3 +1,5 @@
+package com.example;
+
 public class Group {
     private Integer id;
     private String groupName;

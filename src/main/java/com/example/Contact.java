@@ -1,3 +1,5 @@
+package com.example;
+
 public class Contact {
     private Integer id;
     private String name;

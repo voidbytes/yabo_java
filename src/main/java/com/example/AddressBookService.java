@@ -1,55 +1,12 @@
+package com.example;
+
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddressBookService {
     private Integer loginUserId = null;
-
-    public AddressBookService() {
-        initDatabase();
-    }
-
-    // 初始化数据库表
-    private void initDatabase() {
-        try (Connection conn = DBUtil.getConnection(); Statement st = conn.createStatement()) {
-            st.executeUpdate("CREATE DATABASE IF NOT EXISTS yabo_address_book DEFAULT CHARSET utf8mb4");
-            st.executeUpdate("USE yabo_address_book");
-            st.executeUpdate("CREATE TABLE IF NOT EXISTS `user` (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "username VARCHAR(50) NOT NULL UNIQUE," +
-                    "password VARCHAR(100) NOT NULL" +
-                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
-            st.executeUpdate("CREATE TABLE IF NOT EXISTS `grp` (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "group_name VARCHAR(50) NOT NULL," +
-                    "is_default TINYINT NOT NULL DEFAULT 0," +
-                    "user_id INT NOT NULL," +
-                    "FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE" +
-                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
-            st.executeUpdate("CREATE TABLE IF NOT EXISTS contact (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "name VARCHAR(50) NOT NULL," +
-                    "phone VARCHAR(20)," +
-                    "province VARCHAR(50)," +
-                    "city VARCHAR(50)," +
-                    "county VARCHAR(50)," +
-                    "company VARCHAR(100)," +
-                    "email VARCHAR(100)," +
-                    "remark VARCHAR(200)," +
-                    "group_id INT," +
-                    "user_id INT NOT NULL," +
-                    "FOREIGN KEY (group_id) REFERENCES `grp`(id) ON DELETE SET NULL," +
-                    "FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE" +
-                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "数据库初始化失败: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     // 用户登录
     public User login(String username, String pwd) {
