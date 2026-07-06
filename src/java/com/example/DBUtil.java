@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBUtil {
-    private static final String HOST = "jdbc:mysql://192.168.228.100:3306";
+    private static final String HOST = "jdbc:mysql://172.16.16.136:3306";
     private static final String DB = "yabo_address_book";
     private static final String FULL_URL = HOST + "/" + DB + "?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8";
     private static final String USER = "root";
