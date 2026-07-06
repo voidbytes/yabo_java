@@ -24,6 +24,7 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -32,7 +33,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>com.example.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -42,7 +43,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>Main</mainClass>
+                    <mainClass>com.example.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
