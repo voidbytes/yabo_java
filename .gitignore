@@ -1,0 +1,22 @@
+# IDE
+.idea/
+*.iml
+out/
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven
+target/
+
+# Data files
+*.txt
+
+# OS files
+.DS_Store
+Thumbs.db
